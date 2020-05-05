@@ -1,0 +1,15 @@
+# Seed to derive server pub keys for each statechain
+seed = "model under short warm test marble dog vibrant element daring foil order craft gravity avoid actress soldier film shrug polar leisure cable crash harsh"
+
+[federation]
+# Federation domain name
+domain = "statechain.info"
+# Federation ID
+id = 420
+
+# `i` is incremented each time a new statechain is initialized.
+path = "m/420/<federation_id>/<i>"
+
+signers = [
+  "https://127.0.0.1:5001"
+]

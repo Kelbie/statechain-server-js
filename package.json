@@ -1,0 +1,40 @@
+{
+  "name": "statechains-server",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "test": "mocha --no-timeouts"
+  },
+  "author": "Kevin Kelbie <kevin@kelbie.me> (https://kelbie.me/)",
+  "dependencies": {
+    "async": "^3.2.0",
+    "async-request": "^1.2.0",
+    "bigi": "^1.4.2",
+    "bip-schnorr": "^0.3.0",
+    "bip32": "^2.0.3",
+    "bip39": "^3.0.2",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "express-graphql": "^0.8.0",
+    "graphql": "^14.3.1",
+    "hex2dec": "^1.1.2",
+    "js-sha256": "^0.9.0",
+    "morgan": "~1.9.1",
+    "node-fetch": "^2.6.0",
+    "pg": "^7.11.0",
+    "promise-socket": "^6.0.3",
+    "request": "^2.88.0",
+    "secp256k1": "^3.7.1",
+    "socket.io": "^2.3.0",
+    "toml": "^3.0.0",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "mocha": "^6.1.4"
+  }
+}

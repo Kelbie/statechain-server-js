@@ -1,0 +1,20 @@
+language:
+  - "node_js"
+
+node_js:
+  - "10.15.3"
+
+services:
+  - docker
+
+before_install:
+  # Disable services enabled by default
+  - sudo service mysql stop
+  - sudo service postgresql stop
+  # Build server
+  - docker build -t statechain-server .
+  - docker-compose up
+
+# jobs:
+#   include:
+#     -script: docker-compose run test
