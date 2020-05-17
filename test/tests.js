@@ -130,7 +130,7 @@ describe('connect', function() {
       
       let transitoryPrivKeyX = genKey()
       
-      for (let i = 0; i < Math.random() * (20 - 2) + 2; i++) {
+      for (let i = 0; i < 5; i++) {
         let TX = "TX";
       
         let [publicKeyN, privateKeyN] = genKey() // second key for B
