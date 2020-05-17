@@ -34,13 +34,12 @@ describe('connect', function() {
       
       let blindedSignature = await transfer(publicKey, publicKey2, signature, blindedMessage)
 
-      console.log(Buffer.from(serverPublicKey, 'hex'), convert.hash(Buffer.from('muSig is awesome!', 'utf8')), Buffer.from(blindedSignature, 'hex'))
-      schnorr.verify(Buffer.from(serverPublicKey, 'hex'), convert.hash(Buffer.from('muSig is awesome!', 'utf8')),  Buffer.from(blindedSignature, 'hex'));
-      // try {
-      //   assert(true);
-      // } catch (err) {
-      //   assert(false);
-      // }
+      try {
+        schnorr.verify(Buffer.from(serverPublicKey, 'hex'), convert.hash(Buffer.from('muSig is awesome!', 'utf8')),  Buffer.from(blindedSignature, 'hex'));
+        assert(true);
+      } catch (err) {
+        assert(false);
+      }
     });
     // it('transfers state with invalid signature', async function() {
     //   let [publicKey, privateKey] = genKey()

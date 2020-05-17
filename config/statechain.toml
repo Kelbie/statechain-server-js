@@ -7,8 +7,8 @@ domain = "statechain.info"
 # Federation ID
 id = 420
 
-# `i` is incremented each time a new statechain is initialized.
-path = "m/420/<federation_id>/<i>"
+# i is each index 
+path = "m/<federation_id>/<i>"
 
 signers = [
   "https://127.0.0.1:5001"

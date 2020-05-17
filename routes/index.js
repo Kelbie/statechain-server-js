@@ -128,8 +128,8 @@ router.post("/init", async (req, res, next) => {
     // party and then be distributed to every participant.
     // -----------------------------------------------------------------------
     const publicKeys = [
-      Buffer.from(serverPubKey.toString('hex'), 'hex'),
-      Buffer.from(result.payload.public_key, 'hex'),
+      Buffer.from('03846f34fdb2345f4bf932cb4b7d278fb3af24f44224fb52ae551781c3a3cad68a', 'hex'),
+      Buffer.from('02cd836b1d42c51d80cef695a14502c21d2c3c644bc82f6a7052eb29247cf61f4f', 'hex'),
     ]
     const pubKeyHash = schnorr.muSig.computeEll(publicKeys);
     const pubKeyCombined = schnorr.muSig.pubKeyCombine(publicKeys, pubKeyHash);
@@ -344,7 +344,6 @@ router.post("/transfer", async (req, res, next) => {
       // The resulting signature can now be verified as a normal Schnorr
       // signature (s, R) over the message m and public key P.
       // -----------------------------------------------------------------------
-      console.log(pubKeyCombined, blindedMessage, signature)
       schnorr.verify(pubKeyCombined, blindedMessage, signature);
 
       res.json({signature: signature});
