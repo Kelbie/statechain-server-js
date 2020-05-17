@@ -15,12 +15,12 @@ const transfer = require("../helpers/transfer");
 
 var assert = require('assert');
 describe('connect', function() {
-  // describe('#init()', function() {
-  //   it('initializes statechain', async function() {
-  //     let [publicKey, privateKey] = genKey()
-  //     let serverPublicKey = await init(publicKey)
-  //   });
-  // });
+  describe('#init()', function() {
+    it('initializes statechain', async function() {
+      let [publicKey, privateKey] = genKey()
+      let serverPublicKey = await init(publicKey)
+    });
+  });
   describe('#transfer()', function() {
     it('transfers state to new owner', async function() {
       let [publicKey, privateKey] = genKey()
@@ -131,6 +131,33 @@ describe('connect', function() {
       let transitoryPrivKeyX = genKey()
       
       for (let i = 0; i < 5; i++) {
+        let TX = "TX";
+      
+        let [publicKeyN, privateKeyN] = genKey() // second key for B
+      
+        let blindedMessage = "243F6A8885A308D313198A2E03707344A4093822299F31D0082EFA98EC4E6C89"; // not actually blinded(tx2)
+        let preImage = Buffer.from(sha256([blindedMessage, publicKeyN].join(",")), "hex");
+        signature = schnorr.sign(BigInteger.fromHex(privateKeyM), preImage).toString("hex");
+      
+        try {
+          let signedBlindedMessage = await transfer(publicKeyM, publicKeyN, signature, blindedMessage)
+          assert(true);
+        } catch (err) {
+          assert(false);
+        }
+  
+        publicKeyM = publicKeyN;
+        privateKeyM = privateKeyN;
+      }
+    });
+    it('5 transfer chain test', async function() {
+      let [publicKeyM, privateKeyM] = genKey()
+  
+      let serverPublicKeyA = await init(publicKeyM)
+      
+      let transitoryPrivKeyX = genKey()
+      
+      for (let i = 0; i < 2; i++) {
         let TX = "TX";
       
         let [publicKeyN, privateKeyN] = genKey() // second key for B
