@@ -123,32 +123,32 @@ describe('connect', function() {
         assert(true);
       }
     });
-    // it('5 transfer chain test', async function() {
-    //   let [publicKeyM, privateKeyM] = genKey()
+    it('5 transfer chain test', async function() {
+      let [publicKeyM, privateKeyM] = genKey()
   
-    //   let serverPublicKeyA = await init(publicKeyM)
+      let serverPublicKeyA = await init(publicKeyM)
       
-    //   let transitoryPrivKeyX = genKey()
+      let transitoryPrivKeyX = genKey()
       
-    //   for (let i = 0; i < Math.random() * (20 - 2) + 2; i++) {
-    //     let TX = "TX";
+      for (let i = 0; i < Math.random() * (20 - 2) + 2; i++) {
+        let TX = "TX";
       
-    //     let [publicKeyN, privateKeyN] = genKey() // second key for B
+        let [publicKeyN, privateKeyN] = genKey() // second key for B
       
-    //     let blindedMessage = "243F6A8885A308D313198A2E03707344A4093822299F31D0082EFA98EC4E6C89"; // not actually blinded(tx2)
-    //     let preImage = Buffer.from(sha256([blindedMessage, publicKeyN].join(",")), "hex");
-    //     signature = schnorr.sign(BigInteger.fromHex(privateKeyM), preImage).toString("hex");
+        let blindedMessage = "243F6A8885A308D313198A2E03707344A4093822299F31D0082EFA98EC4E6C89"; // not actually blinded(tx2)
+        let preImage = Buffer.from(sha256([blindedMessage, publicKeyN].join(",")), "hex");
+        signature = schnorr.sign(BigInteger.fromHex(privateKeyM), preImage).toString("hex");
       
-    //     try {
-    //       let signedBlindedMessage = await transfer(publicKeyM, publicKeyN, signature, blindedMessage)
-    //       assert(true);
-    //     } catch (err) {
-    //       assert(false);
-    //     }
+        try {
+          let signedBlindedMessage = await transfer(publicKeyM, publicKeyN, signature, blindedMessage)
+          assert(true);
+        } catch (err) {
+          assert(false);
+        }
   
-    //     publicKeyM = publicKeyN;
-    //     privateKeyM = privateKeyN;
-    //   }
-    // });
+        publicKeyM = publicKeyN;
+        privateKeyM = privateKeyN;
+      }
+    });
   });
 });
