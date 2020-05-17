@@ -41,24 +41,24 @@ describe('connect', function() {
         assert(false);
       }
     });
-    // it('transfers state with invalid signature', async function() {
-    //   let [publicKey, privateKey] = genKey()
-    //   let serverPublicKey = await init(publicKey)
+    it('transfers state with invalid signature', async function() {
+      let [publicKey, privateKey] = genKey()
+      let serverPublicKey = await init(publicKey)
 
-    //   let [publicKey2, privateKey2] = genKey()
+      let [publicKey2, privateKey2] = genKey()
 
-    //   let blindedMessage = "243F6A8885A308D313198A2E03707344A4093822299F31D0082EFA98EC4E6C89";
-    //   let preImage = Buffer.from(sha256([blindedMessage, publicKey2].join(",")), "hex");
-    //   // Signs with privateKey2 when it should be privateKey
-    //   signature = schnorr.sign(BigInteger.fromHex(privateKey2), preImage).toString("hex");
+      let blindedMessage = "243F6A8885A308D313198A2E03707344A4093822299F31D0082EFA98EC4E6C89";
+      let preImage = Buffer.from(sha256([blindedMessage, publicKey2].join(",")), "hex");
+      // Signs with privateKey2 when it should be privateKey
+      signature = schnorr.sign(BigInteger.fromHex(privateKey2), preImage).toString("hex");
 
-    //   try {
-    //     let signedBlindedMessage = await transfer(publicKey, publicKey2, signature, blindedMessage)
-    //     assert(false);
-    //   } catch (err) {
-    //     assert(true);
-    //   }
-    // });
+      try {
+        let signedBlindedMessage = await transfer(publicKey, publicKey2, signature, blindedMessage)
+        assert(false);
+      } catch (err) {
+        assert(true);
+      }
+    });
     // it('verify signed blinded message', async function() {
     //   let [publicKey, privateKey] = genKey()
     //   let serverPublicKey = await init(publicKey)
