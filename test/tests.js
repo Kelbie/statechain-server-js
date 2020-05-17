@@ -84,45 +84,45 @@ describe('connect', function() {
         assert(true);
       }
     });
-    // it('sign with previous key in statechain', async function() {
-    //   let [publicKey, privateKey] = genKey()
-    //   let serverPublicKey = await init(publicKey)
+    it('sign with previous key in statechain', async function() {
+      let [publicKey, privateKey] = genKey()
+      let serverPublicKey = await init(publicKey)
 
-    //   let [publicKey2, privateKey2] = genKey()
+      let [publicKey2, privateKey2] = genKey()
 
-    //   let blindedMessage = "243F6A8885A308D313198A2E03707344A4093822299F31D0082EFA98EC4E6C89";
-    //   let preImage = Buffer.from(sha256([blindedMessage, publicKey2].join(",")), "hex");
-    //   let signature = schnorr.sign(BigInteger.fromHex(privateKey), preImage).toString("hex");
+      let blindedMessage = "243F6A8885A308D313198A2E03707344A4093822299F31D0082EFA98EC4E6C89";
+      let preImage = Buffer.from(sha256([blindedMessage, publicKey2].join(",")), "hex");
+      let signature = schnorr.sign(BigInteger.fromHex(privateKey), preImage).toString("hex");
       
-    //   let signedBlindedMessage;
-    //   try {
-    //     signedBlindedMessage = await transfer(publicKey, publicKey2, signature, blindedMessage)
-    //     assert(true);
-    //   } catch (err) {
-    //     assert(true);
-    //   }
+      let signedBlindedMessage;
+      try {
+        signedBlindedMessage = await transfer(publicKey, publicKey2, signature, blindedMessage)
+        assert(true);
+      } catch (err) {
+        assert(true);
+      }
 
-    //   try {
-    //     schnorr.verify(Buffer.from(serverPublicKey, "hex"), Buffer.from(blindedMessage, "hex"), Buffer.from(signedBlindedMessage, "hex"))
-    //     assert(true);
-    //   } catch (err) {
-    //     assert(true);
-    //   }
+      try {
+        schnorr.verify(Buffer.from(serverPublicKey, "hex"), Buffer.from(blindedMessage, "hex"), Buffer.from(signedBlindedMessage, "hex"))
+        assert(true);
+      } catch (err) {
+        assert(true);
+      }
 
-    //   let [publicKey3, privateKey3] = genKey()
+      let [publicKey3, privateKey3] = genKey()
       
-    //   let blindedMessage2 = "243F6A8885A308D313198A2E03707344A4093822299F31D0082EFA98EC4E6C89";
-    //   let preImage2 = Buffer.from(sha256([blindedMessage2, publicKey3].join(",")), "hex");
-    //   let signature2 = schnorr.sign(BigInteger.fromHex(privateKey), preImage2).toString("hex");
+      let blindedMessage2 = "243F6A8885A308D313198A2E03707344A4093822299F31D0082EFA98EC4E6C89";
+      let preImage2 = Buffer.from(sha256([blindedMessage2, publicKey3].join(",")), "hex");
+      let signature2 = schnorr.sign(BigInteger.fromHex(privateKey), preImage2).toString("hex");
 
-    //   let signedBlindedMessage2;
-    //   try {
-    //     signedBlindedMessage2 = await transfer(publicKey, publicKey3, signature2, blindedMessage2)
-    //     assert(false);
-    //   } catch (err) {
-    //     assert(true);
-    //   }
-    // });
+      let signedBlindedMessage2;
+      try {
+        signedBlindedMessage2 = await transfer(publicKey, publicKey3, signature2, blindedMessage2)
+        assert(false);
+      } catch (err) {
+        assert(true);
+      }
+    });
     // it('5 transfer chain test', async function() {
     //   let [publicKeyM, privateKeyM] = genKey()
   
