@@ -198,7 +198,7 @@ router.post("/transfer", async (req, res, next) => {
   
       // sign `blindedMessage` and send it to client
       serverPrivKey = BigInteger.fromHex(serverPrivKey);
-      let blindedMessage = convert.hash(Buffer.from('muSig is awesome!', 'utf8'));
+      let blindedMessage = convert.hash(Buffer.from('muSig is awesome2!', 'utf8'));
       const signedBlindedMessage = schnorr.sign(serverPrivKey, Buffer.from(blindedMessage, "hex")).toString("hex");
       
       await promiseSocket.write(JSON.stringify({
