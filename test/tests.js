@@ -20,15 +20,15 @@ describe('connect', function() {
       let [publicKey, privateKey] = genKey()
       let serverPublicKey = await init(publicKey)
     });
-    it('initialize statechain with previously used public key', function() {
-      // let [publicKey, privateKey] = genKey()
-      // let serverPublicKey = await init(publicKey)
-      // try {
-      //   await init(publicKey)
-      //   assert(false);
-      // } catch(err) {
-      //   assert(true);
-      // }
+    it('initialize statechain with previously used public key', async function() {
+      let [publicKey, privateKey] = genKey()
+      let serverPublicKey = await init(publicKey)
+      try {
+        await init(publicKey)
+        assert(false);
+      } catch(err) {
+        assert(true);
+      }
     });
   });
   describe('#transfer()', function() {
