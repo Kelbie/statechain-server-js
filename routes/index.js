@@ -57,7 +57,7 @@ promiseSocket.connect(3333, 'localhost');
 
 router.post("/init", async (req, res, next) => {
     if (!req.body.ownerPubKey) {
-        res.send("`ownerPubKey` was not specified");
+        res.status(400).send("`ownerPubKey` was not specified");
     }
     
     // Check ownerPubKey has not been used before
@@ -67,7 +67,7 @@ router.post("/init", async (req, res, next) => {
     `, [req.body.ownerPubKey]);
 
     if (checkOwnerPubKeyResponse.rows.length > 0) {
-      res.status(500).send("Reuse of `ownerPubKey` not permitted");
+      res.status(400).send("Reuse of `ownerPubKey` not permitted");
     }
 
     // check that `ownerPubKey` is not already being used by another statechain
@@ -77,7 +77,7 @@ router.post("/init", async (req, res, next) => {
     `, [req.body.ownerPubKey]);
 
     if (response.rows.length > 0) {
-        res.send("`ownerPubKey` is already in use");
+        res.status(400).send("`ownerPubKey` is already in use");
     }
 
     // generate serverPubKey and register it to ownerPubKey
@@ -145,7 +145,7 @@ router.post("/transfer", async (req, res, next) => {
       let preImage = Buffer.from(sha256([req.body.blindedMessage, req.body.nextOwnerPubKey].join(",")), "hex")
       schnorr.verify(Buffer.from(req.body.ownerPubKey, "hex"), preImage, Buffer.from(req.body.signature, "hex"))
     } catch(err) {
-      res.status(500).send("Invalid `signature`");
+      res.status(401).send("Invalid `signature`");
       return;
     }
     
@@ -173,7 +173,7 @@ router.post("/transfer", async (req, res, next) => {
 
     // if the peak state is not registered to the requesting pub key
     if (newestStateResponse.rows[0].next_owner_pub_key != req.body.ownerPubKey) {
-      res.status(500).send("Invalid `ownerPubKey`");
+      res.status(401).send("Invalid `ownerPubKey`");
       return;
     } else {
 
