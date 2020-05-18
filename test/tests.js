@@ -20,6 +20,16 @@ describe('connect', function() {
       let [publicKey, privateKey] = genKey()
       let serverPublicKey = await init(publicKey)
     });
+    it('initialize statechain with previously used public key', function() {
+      // let [publicKey, privateKey] = genKey()
+      // let serverPublicKey = await init(publicKey)
+      // try {
+      //   await init(publicKey)
+      //   assert(false);
+      // } catch(err) {
+      //   assert(true);
+      // }
+    });
   });
   describe('#transfer()', function() {
     it('transfers state to new owner', async function() {
@@ -65,7 +75,7 @@ describe('connect', function() {
 
       let [publicKey2, privateKey2] = genKey()
 
-      let blindedMessage = "243F6A8885A308D313198A2E03707344A4093822299F31D0082EFA98EC4E6C89";
+      let blindedMessage = convert.hash(Buffer.from('muSig is awesome2!', 'utf8'));
       let preImage = Buffer.from(sha256([blindedMessage, publicKey2].join(",")), "hex");
       signature = schnorr.sign(BigInteger.fromHex(privateKey), preImage).toString("hex");
       
@@ -74,14 +84,14 @@ describe('connect', function() {
         signedBlindedMessage = await transfer(publicKey, publicKey2, signature, blindedMessage)
         assert(true);
       } catch (err) {
-        assert(true);
+        assert(false);
       }
 
       try {
         schnorr.verify(Buffer.from(serverPublicKey, "hex"), Buffer.from(blindedMessage, "hex"), Buffer.from(signedBlindedMessage, "hex"))
         assert(true);
       } catch (err) {
-        assert(true);
+        assert(false);
       }
     });
     it('sign with previous key in statechain', async function() {
@@ -90,7 +100,7 @@ describe('connect', function() {
 
       let [publicKey2, privateKey2] = genKey()
 
-      let blindedMessage = "243F6A8885A308D313198A2E03707344A4093822299F31D0082EFA98EC4E6C89";
+      let blindedMessage = convert.hash(Buffer.from('muSig is awesome2!', 'utf8'));
       let preImage = Buffer.from(sha256([blindedMessage, publicKey2].join(",")), "hex");
       let signature = schnorr.sign(BigInteger.fromHex(privateKey), preImage).toString("hex");
       
@@ -99,19 +109,19 @@ describe('connect', function() {
         signedBlindedMessage = await transfer(publicKey, publicKey2, signature, blindedMessage)
         assert(true);
       } catch (err) {
-        assert(true);
+        assert(false);
       }
 
       try {
         schnorr.verify(Buffer.from(serverPublicKey, "hex"), Buffer.from(blindedMessage, "hex"), Buffer.from(signedBlindedMessage, "hex"))
         assert(true);
       } catch (err) {
-        assert(true);
+        assert(false);
       }
 
       let [publicKey3, privateKey3] = genKey()
       
-      let blindedMessage2 = "243F6A8885A308D313198A2E03707344A4093822299F31D0082EFA98EC4E6C89";
+      let blindedMessage2 = convert.hash(Buffer.from('muSig is awesome2!', 'utf8'));
       let preImage2 = Buffer.from(sha256([blindedMessage2, publicKey3].join(",")), "hex");
       let signature2 = schnorr.sign(BigInteger.fromHex(privateKey), preImage2).toString("hex");
 
@@ -131,33 +141,6 @@ describe('connect', function() {
       let transitoryPrivKeyX = genKey()
       
       for (let i = 0; i < 5; i++) {
-        let TX = "TX";
-      
-        let [publicKeyN, privateKeyN] = genKey() // second key for B
-      
-        let blindedMessage = "243F6A8885A308D313198A2E03707344A4093822299F31D0082EFA98EC4E6C89"; // not actually blinded(tx2)
-        let preImage = Buffer.from(sha256([blindedMessage, publicKeyN].join(",")), "hex");
-        signature = schnorr.sign(BigInteger.fromHex(privateKeyM), preImage).toString("hex");
-      
-        try {
-          let signedBlindedMessage = await transfer(publicKeyM, publicKeyN, signature, blindedMessage)
-          assert(true);
-        } catch (err) {
-          assert(false);
-        }
-  
-        publicKeyM = publicKeyN;
-        privateKeyM = privateKeyN;
-      }
-    });
-    it('5 transfer chain test', async function() {
-      let [publicKeyM, privateKeyM] = genKey()
-  
-      let serverPublicKeyA = await init(publicKeyM)
-      
-      let transitoryPrivKeyX = genKey()
-      
-      for (let i = 0; i < 2; i++) {
         let TX = "TX";
       
         let [publicKeyN, privateKeyN] = genKey() // second key for B
